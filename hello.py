@@ -1,15 +1,15 @@
-from flask import Flask
-import os
-import socket
-from middleware import setup_metrics
+from flask import Flask, Response
+# from middleware import setup_metrics
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 
-setup_metrics(app)
+metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def hello():
-    return 'Hello World from host \"%s\".\n' % socket.gethostname()
+    return 'Hello World'
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(port=8080, debug=True)
