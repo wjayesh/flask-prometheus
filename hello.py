@@ -1,8 +1,11 @@
 from flask import Flask
 import os
 import socket
+from middleware import setup_metrics
 
 app = Flask(__name__)
+
+setup_metrics(app)
 
 @app.route('/')
 def hello():
