@@ -1,11 +1,12 @@
 from flask import Flask, Response
-import prometheus_client as prom
+from prometheus_client import start_http_server
+
 # from middleware import setup_metrics
 from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 
-metrics = PrometheusMetrics(app)
+PrometheusMetrics(app)
 
 @app.route('/')
 def hello():
@@ -13,5 +14,5 @@ def hello():
 
 
 if __name__ == "__main__":
-    prom.start_http_server(5000, addr="0.0.0.0")
-    # app.run(host='0.0.0.0', debug=True)
+#     # start_http_server(5000, addr="0.0.0.0")
+    app.run('0.0.0.0', 5000)
